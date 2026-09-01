@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Little Surprise for Ishita ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+  overflow:hidden; color:#fff; font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+  background:radial-gradient(circle at 20% 20%,#5d2148,#210d27 45%,#09040d);
+}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 80% 10%,rgba(255,110,170,.18),transparent 30%),radial-gradient(circle at 10% 90%,rgba(170,90,255,.15),transparent 30%);pointer-events:none}
+.card{
+  width:min(92vw,720px); padding:38px 24px; text-align:center; border-radius:30px;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 25px 80px rgba(0,0,0,.45); backdrop-filter:blur(14px); position:relative; z-index:2;
+}
+.eyebrow{letter-spacing:.25em;text-transform:uppercase;font-size:11px;color:#ffb5d6}
+h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(40px,9vw,76px);margin:10px 0;color:#fff}
+.sub{color:#e8c7d8;font-size:16px;margin:0 auto 28px}
+.timer{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:600px;margin:auto}
+.box{padding:18px 8px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)}
+.num{font-size:clamp(28px,7vw,46px);font-weight:800;color:#ff9fc7}
+.lab{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#cda9bc;margin-top:5px}
+.heart{font-size:30px;margin:22px 0 5px;animation:pulse 1.4s infinite}
+button{border:0;border-radius:999px;padding:14px 25px;font-weight:700;font-size:15px;cursor:pointer;background:#ff8fbd;color:#321024;box-shadow:0 8px 25px rgba(255,80,150,.25)}
+button:hover{transform:translateY(-1px)}
+.hidden{display:none}
+.message{font-family:Georgia,serif;font-size:20px;line-height:1.7;color:#f8dce9;max-width:570px;margin:18px auto}
+.signature{font-family:system-ui,sans-serif;font-size:13px;color:#cba9bb;margin-top:20px}
+.gift{font-size:82px;cursor:pointer;animation:float 2s ease-in-out infinite}
+.hint{font-size:13px;color:#cba9bb;margin-top:8px}
+.floatheart{position:fixed;bottom:-30px;z-index:1;opacity:.8;animation:rise linear forwards;pointer-events:none}
+.confetti{position:fixed;top:-20px;z-index:5;animation:fall linear forwards;pointer-events:none}
+@keyframes pulse{50%{transform:scale(1.18)}}
+@keyframes float{50%{transform:translateY(-8px) rotate(2deg)}}
+@keyframes rise{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+@media(max-width:520px){.timer{grid-template-columns:repeat(2,1fr)}.card{padding:30px 16px}}
+</style>
+</head>
+<body>
+<div class="card">
+  <section id="countdown">
+    <div class="eyebrow">A little secret for</div>
+    <h1>Ishita ❤️</h1>
+    <p class="sub">Something special is waiting for you...</p>
+    <div class="timer">
+      <div class="box"><div class="num" id="d">00</div><div class="lab">Days</div></div>
+      <div class="box"><div class="num" id="h">00</div><div class="lab">Hours</div></div>
+      <div class="box"><div class="num" id="m">00</div><div class="lab">Minutes</div></div>
+      <div class="box"><div class="num" id="s">00</div><div class="lab">Seconds</div></div>
+    </div>
+    <div class="heart">♥</div>
+    <div class="hint">Until 5 September ✨</div>
+  </section>
+
+  <section id="birthday" class="hidden">
+    <div class="eyebrow">Today is your day</div>
+    <h1>Happy Birthday,<br>Ishita! 🎂</h1>
+    <div class="gift" id="gift" title="Open your gift">🎁</div>
+    <div class="hint">Tap the gift</div>
+  </section>
+
+  <section id="letter" class="hidden">
+    <div class="eyebrow">For you, Ishita</div>
+    <h1>❤️</h1>
+    <div class="message">
+      I wanted to give you something you could open whenever you wanted
+      and instantly know that someone was thinking about you.
+      <br><br>
+      So here's a tiny countdown to your big day —
+      because every second bringing us closer to your birthday is worth celebrating.
+      <br><br>
+      <strong>Happy Birthday, beautiful.</strong>
+      <br>
+      I hope this year brings you everything your heart wishes for.
+    </div>
+    <div class="signature">Made with love, just for you ❤️</div>
+  </section>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const countdown=$('countdown'), birthday=$('birthday'), letter=$('letter');
+function nextBirthday(){
+  const now=new Date();
+  let t=new Date(now.getFullYear(),8,5,0,0,0);
+  if(t<=now)t=new Date(now.getFullYear()+1,8,5,0,0,0);
+  return t;
+}
+let target=nextBirthday();
+function update(){
+  const diff=target-new Date();
+  if(diff<=0){
+    countdown.classList.add('hidden');
+    birthday.classList.remove('hidden');
+    return;
+  }
+  $('d').textContent=String(Math.floor(diff/86400000)).padStart(2,'0');
+  $('h').textContent=String(Math.floor(diff/3600000)%24).padStart(2,'0');
+  $('m').textContent=String(Math.floor(diff/60000)%60).padStart(2,'0');
+  $('s').textContent=String(Math.floor(diff/1000)%60).padStart(2,'0');
+}
+update(); setInterval(update,1000);
+
+$('gift').addEventListener('click',()=>{
+  birthday.classList.add('hidden');
+  letter.classList.remove('hidden');
+  for(let i=0;i<45;i++){
+    const x=document.createElement('span'); x.className='confetti';
+    x.textContent=['💗','✨','💖','🌸','🎉'][Math.floor(Math.random()*5)];
+    x.style.left=Math.random()*100+'vw';
+    x.style.animationDuration=(2+Math.random()*3)+'s';
+    x.style.fontSize=(12+Math.random()*18)+'px';
+    document.body.appendChild(x);
+    setTimeout(()=>x.remove(),5500);
+  }
+  startMusic();
+});
+
+function hearts(){
+  const x=document.createElement('span'); x.className='floatheart'; x.textContent='♥';
+  x.style.left=Math.random()*100+'vw'; x.style.fontSize=(12+Math.random()*22)+'px';
+  x.style.animationDuration=(5+Math.random()*5)+'s'; document.body.appendChild(x);
+  setTimeout(()=>x.remove(),10000);
+}
+setInterval(hearts,700);
+
+let audioStarted=false;
+function startMusic(){
+  if(audioStarted)return; audioStarted=true;
+  try{
+    const C=window.AudioContext||window.webkitAudioContext,ctx=new C();
+    const notes=[261.63,329.63,392,329.63,293.66,349.23,440,349.23];
+    let t=ctx.currentTime;
+    notes.forEach((f,i)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t+i*.28);
+      g.gain.exponentialRampToValueAtTime(.08,t+i*.28+.03);
+      g.gain.exponentialRampToValueAtTime(.0001,t+i*.28+.25);
+      o.connect(g).connect(ctx.destination);o.start(t+i*.28);o.stop(t+i*.28+.27);
+    });
+  }catch(e){}
+}
+</script>
+</body>
+</html>
